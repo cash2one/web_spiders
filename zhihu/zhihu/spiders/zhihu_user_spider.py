@@ -42,8 +42,8 @@ class ZhihuLoginSpider(CrawlSpider):
     def start_requests(self):
         return [FormRequest(
             "http://www.zhihu.com/login",
-            formdata = {'email':'mr007rin@126.com',
-                        'password':'nhj19780609'
+            formdata = {'email':'xxx@xxx.com',
+                        'password':'xxx'
             },
             callback = self.after_login
         )]
