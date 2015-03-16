@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
-# -*- coding: utf-8 -*-
-from scrapy.http import Request
 from doubanmovie.items import DoubanmovieItem
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.selector import Selector
-import time
 
 class doubanmovieSpider(CrawlSpider):
     name = "doubanmovie"
@@ -22,6 +19,8 @@ class doubanmovieSpider(CrawlSpider):
         #open('response', 'wb').write(response.body)
         movie=DoubanmovieItem()
         movie['moviename']=''.join(selector.xpath("//div[@id='content']/h1/span[1]/text()").extract())
+        movie['year']=''.join(selector.xpath("//div[@id='content']/h1/span[@class='year']/text()").extract()).replace("(","").replace(")","")
+        movie['info']=''.join(selector.xpath("//div[@class='subject clearfix']/div[@id='info']/text()").extract())
         #log.msg('moviename:'+movie['moviename'])
         yield movie
         

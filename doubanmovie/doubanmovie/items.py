@@ -12,4 +12,6 @@ class DoubanmovieItem(Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     moviename = Field()
+    year= Field()
+    info=Field()
     pass
