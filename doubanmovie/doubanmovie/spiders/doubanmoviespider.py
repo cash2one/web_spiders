@@ -18,9 +18,14 @@ class doubanmovieSpider(CrawlSpider):
         selector = Selector(response)
         #open('response', 'wb').write(response.body)
         movie=DoubanmovieItem()
+        movie['url']=response.url
         movie['moviename']=''.join(selector.xpath("//div[@id='content']/h1/span[1]/text()").extract())
         movie['year']=''.join(selector.xpath("//div[@id='content']/h1/span[@class='year']/text()").extract()).replace("(","").replace(")","")
-        movie['info']=''.join(selector.xpath("//div[@class='subject clearfix']/div[@id='info']/text()").extract())
+        movie['director']=''.join(selector.xpath("//div[@id='info']/span[1]/span[@class='attrs']/a/text()").extract())
+        movie['writer']=''.join(selector.xpath("//div[@id='info']/span[2]/span[@class='attrs']/a/text()").extract())
+        movie['actor']=''.join(selector.xpath("//div[@id='info']/span[@class='actor']/span[@class='attrs']").extract())
+        movie['introduction']=''.join(selector.xpath("//div[@id='link-report']/span[1]/text()").extract()).replace(" ","")
+        movie['rating']=''.join(selector.xpath("//div[@class='rating_wrap clearbox']/p[@class='rating_self clearfix']/strong[@class='ll rating_num']/text()").extract())
         #log.msg('moviename:'+movie['moviename'])
         yield movie
         

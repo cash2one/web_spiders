@@ -13,5 +13,11 @@ class DoubanmovieItem(Item):
     # name = scrapy.Field()
     moviename = Field()
     year= Field()
-    info=Field()
+    #base_info=Field()
+    introduction=Field()
+    rating=Field()
+    url=Field()
+    director=Field()
+    writer=Field()
+    actor=Field()
     pass
