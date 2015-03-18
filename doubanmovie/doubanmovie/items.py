@@ -20,4 +20,5 @@ class DoubanmovieItem(Item):
     director=Field()
     writer=Field()
     actor=Field()
+    rec_urls=Field()
     pass
