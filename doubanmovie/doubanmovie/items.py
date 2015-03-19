@@ -11,14 +11,9 @@ from scrapy.item import Item, Field
 class DoubanmovieItem(Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    moviename = Field()
-    year= Field()
-    #base_info=Field()
-    introduction=Field()
+
+    id=Field()
+    nlp_result=Field()
+    title=Field()
     rating=Field()
-    url=Field()
-    director=Field()
-    writer=Field()
-    actor=Field()
-    rec_urls=Field()
     pass
