@@ -2,3 +2,6 @@
 *.bak
 *.class
 *.obj
+*.json
+LOG_FILE
+/doubanmovie/.idea/*

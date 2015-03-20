@@ -12,8 +12,8 @@ class DoubanmovieItem(Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
 
-    id=Field()
-    nlp_result=Field()
+    movieid=Field()
     title=Field()
     rating=Field()
+    nlp_results=Field()
     pass

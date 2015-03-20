@@ -6,18 +6,20 @@ from scrapy.selector import Selector
 from scrapy import log
 import gl
 import doubanapi
+import time
 
 class doubanmovieSpider(CrawlSpider):
 
     name = "doubanmovie"
     start_urls = ['http://movie.douban.com/']
-    download_delay = 2
+    download_delay = 1.8
+
     rules = (
         Rule(SgmlLinkExtractor(allow=r'/subject/[0-9]+/\?from'), callback='parse_item', follow=True),
     )
 
     def parse_item(self, response):
-        log.start(logfile='LOG_FILE')
+
         #log.msg('go into parse_item')
         selector = Selector(response)
         #open('response', 'wb').write(response.body)
@@ -28,10 +30,15 @@ class doubanmovieSpider(CrawlSpider):
 
         for doubanid in doubanid_lst:
             log.msg('got doubanid:'+doubanid)
+            if doubanid in gl.local_doubanid_lst:
+                return
+            gl.local_doubanid_lst.append(doubanid)
             movie=DoubanmovieItem()
-            movie['id']=doubanid
-            movie['title'],movie['rating'],movie['nlp_result']=doubanapi.doubanidapi(doubanid)
+            movie['movieid']=doubanid
+            movie['title'],movie['rating'],movie['nlp_results']=doubanapi.doubanidapi(doubanid)
             yield movie
+            time.sleep(0.5)
+
 
 
         

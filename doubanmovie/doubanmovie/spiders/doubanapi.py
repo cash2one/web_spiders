@@ -1,11 +1,12 @@
 # -*- coding:utf8 -*-
 import urllib2
 import json
+from scrapy import log
 from seg_sen import seg_sen
 def nlp(text):
     url_get_base = "http://ltpapi.voicecloud.cn/analysis/?"
     api_key = 'B3l170O7hW1qqMWNvCBPWmdlZCALIbEq7rVswpmR'
-    format = 'xml'
+    format = 'json'
     pattern = 'all'
     result = urllib2.urlopen("%sapi_key=%s&text=%s&format=%s&pattern=%s" % (url_get_base,api_key,text,format,pattern))
     content = result.read().strip()
@@ -24,8 +25,10 @@ def doubanidapi(id):
     nlpresult=''
     for txt in input:
         if txt!='':
-            nlpresult=nlpresult+nlp(txt)
-    return title,rating,nlpresult
+           nlptext=nlp(txt)
+           if 'relate' in nlptext:
+                nlpresult=nlpresult+nlptext+'&'
+    return title,rating,nlpresult[:-1]
 
 
     
